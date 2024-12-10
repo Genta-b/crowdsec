@@ -1,0 +1,20 @@
+# Configuration for CrowdSec Firewall Bouncer (iptables)
+
+bouncer:
+  type: "firewall"
+  firewall: "iptables"           # Specify firewall type, in this case, iptables
+  log_file: "/var/log/crowdsec/firewall_bouncer.log"  # Log file for bouncer logs
+
+firewall:
+  # Define the iptables rules that the bouncer will apply
+  table: "filter"               # Table to use in iptables (usually filter)
+  chains:
+    - name: "INPUT"              # Specify the chains to monitor
+      action: "DROP"             # Action to be taken on blocked IPs (e.g., DROP)
+    - name: "OUTPUT"
+      action: "ACCEPT"           # Allow outgoing traffic
+    - name: "FORWARD"
+      action: "ACCEPT"           # Allow forwarding traffic
+
+# Define any additional settings for managing the firewall
+

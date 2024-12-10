@@ -1,0 +1,16 @@
+# Configuration for CrowdSec Nginx Bouncer
+
+bouncer:
+  type: "nginx"                   # Define the bouncer type (nginx)
+  log_file: "/var/log/crowdsec/nginx_bouncer.log"  # Log file for nginx bouncer logs
+
+nginx:
+  # Define specific Nginx configurations for CrowdSec to protect
+  directives:
+    - name: "deny"                # Action to block requests
+      value: "ALL"                 # Deny all malicious requests from CrowdSec IP list
+    - name: "allow"
+      value: "127.0.0.1"           # Allow traffic from local machine (or adjust as necessary)
+
+  configuration_file: "/etc/nginx/nginx.conf"   # Path to the main Nginx config file
+

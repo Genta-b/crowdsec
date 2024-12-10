@@ -1,0 +1,5 @@
+type: "bruteforce"
+name: "ssh_bruteforce"
+description: "Detects SSH brute-force attempts"
+filter: "ssh"
+

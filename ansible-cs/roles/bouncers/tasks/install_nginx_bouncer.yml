@@ -1,0 +1,16 @@
+---
+- name: Install and configure Nginx bouncer
+  apt:
+    name: crowdsec-nginx-bouncer
+    state: present
+
+- name: Configure Nginx bouncer
+  template:
+    src: nginx_bouncer.yaml.j2
+    dest: /etc/crowdsec/bouncers/nginx_bouncer.yaml
+
+- name: Restart Nginx service
+  systemd:
+    name: nginx
+    state: restarted
+

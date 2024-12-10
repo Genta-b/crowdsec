@@ -1,0 +1,7 @@
+[crowdsec]
+name=CrowdSec
+baseurl=https://packages.crowdsec.net/deb/
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.crowdsec.net/public.key
+

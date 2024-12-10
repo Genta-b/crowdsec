@@ -1,0 +1,18 @@
+---
+- name: Install CrowdSec on the agent
+  apt:
+    name: crowdsec
+    state: present
+    update_cache: yes
+
+- name: Configure the CrowdSec agent
+  template:
+    src: crowdsec_agent.conf.j2
+    dest: /etc/crowdsec/config.yaml
+
+- name: Enable and start CrowdSec agent service
+  systemd:
+    name: crowdsec-agent
+    state: started
+    enabled: yes
+

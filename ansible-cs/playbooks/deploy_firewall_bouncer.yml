@@ -1,0 +1,20 @@
+---
+- name: Install and configure CrowdSec firewall bouncer (iptables)
+  hosts: agent
+  become: yes
+  tasks:
+    - name: Install iptables bouncer
+      apt:
+        name: crowdsec-firewall-bouncer
+        state: present
+
+    - name: Configure firewall bouncer
+      template:
+        src: iptables_bouncer.conf.j2
+        dest: /etc/crowdsec/bouncers/iptables_bouncer.yaml
+
+    - name: Restart CrowdSec firewall bouncer
+      systemd:
+        name: crowdsec-firewall-bouncer
+        state: restarted
+

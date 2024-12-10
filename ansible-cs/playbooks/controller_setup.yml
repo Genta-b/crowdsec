@@ -1,0 +1,27 @@
+---
+- name: Install and configure CrowdSec Controller
+  hosts: controller
+  become: yes
+  tasks:
+    - name: Install CrowdSec packages
+      apt:
+        name:
+          - crowdsec
+          - crowdsec-firewall-bouncer
+        state: present
+        update_cache: yes
+
+    - name: Configure CrowdSec Controller
+      template:
+        src: crowdsec_controller.conf.j2
+        dest: /etc/crowdsec/config.yaml
+
+    - name: Enable and start CrowdSec service
+      systemd:
+        name: crowdsec
+        enabled: yes
+        state: started
+
+    - name: Verify CrowdSec status
+      command: crowdsec -v
+

@@ -1,0 +1,27 @@
+---
+- name: Install and configure CrowdSec Agent
+  hosts: agent
+  become: yes
+  tasks:
+    - name: Install CrowdSec packages
+      apt:
+        name:
+          - crowdsec
+          - crowdsec-firewall-bouncer
+        state: present
+        update_cache: yes
+
+    - name: Configure CrowdSec Agent
+      template:
+        src: crowdsec_agent.conf.j2
+        dest: /etc/crowdsec/config.yaml
+
+    - name: Enable and start CrowdSec agent service
+      systemd:
+        name: crowdsec-agent
+        enabled: yes
+        state: started
+
+    - name: Verify CrowdSec agent status
+      command: crowdsec -v
+

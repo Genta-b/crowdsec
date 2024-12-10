@@ -1,0 +1,18 @@
+---
+- name: Install CrowdSec on the controller
+  apt:
+    name: crowdsec
+    state: present
+    update_cache: yes
+
+- name: Configure the CrowdSec controller
+  template:
+    src: crowdsec_controller.conf.j2
+    dest: /etc/crowdsec/config.yaml
+
+- name: Enable and start CrowdSec service
+  systemd:
+    name: crowdsec
+    state: started
+    enabled: yes
+
